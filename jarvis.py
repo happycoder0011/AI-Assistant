@@ -2,7 +2,7 @@ import pyttsx3
 import datetime
 import speech_recognition as sr
 import wikipedia 
-
+import smtplib
 
 engine = pyttsx3.init()
 
@@ -43,6 +43,13 @@ def wishme():
         speak("It looks like you pulling a all nighter")        
     speak("i am jarvis at your service Hope you doing great and you safe and happy how can i help you!!")
 
+def sendemail(to , content):
+    server = smtplib.SMTP('smtp.gmail.com',587)
+    server.ehlo()
+    server.starttls()
+    server.login('sheetalsinghssr','sheetal@123')
+    server.sendmail('sheetalsinghssr@gmail.com',to,content)
+    server.close()
     
 def takecommand():
     r = sr.Recognizer()
@@ -79,6 +86,16 @@ if __name__ == "__main__":
             speak(result)
         elif "thanks" in query:
             speak("no sweat boss , anything else you want to know")
+        elif "send mail" in query:
+            try:
+                speak("what should i send in mail")
+                content = takecommand()
+                to = 'sheetalsinghnew@gmail.com'
+                sendemail(to,content)
+                speak("email has been sent successfully")
+            except Exception as e :
+                print(e)
+                speak("unable to sent email due to some error")
         elif 'ok bye' in query:
             speak("It was nice talking to you !! tata tata")
             quit()
