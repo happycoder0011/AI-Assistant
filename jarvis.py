@@ -3,6 +3,7 @@ import datetime
 import speech_recognition as sr
 import wikipedia 
 import smtplib
+import os
 
 engine = pyttsx3.init()
 
@@ -96,6 +97,10 @@ if __name__ == "__main__":
             except Exception as e :
                 print(e)
                 speak("unable to sent email due to some error")
+        elif 'play song' in query:
+            songs_dir = 'C:\\Users\\user\\Desktop\\folder\\music\\new songs\\highway'
+            songs = os.listdir(songs_dir)
+            os.startfile(os.path.join(songs_dir,songs[0]))
         elif 'ok bye' in query:
             speak("It was nice talking to you !! tata tata")
             quit()
